@@ -7,15 +7,15 @@
 | SEC-002 | Permisos restrictivos en credenciales OpenClaw. | Sí: `/home/jose/.openclaw/credentials` en `700`, owner `jose`. | ⭐⭐⭐⭐☆ |
 | SEC-003 | Hardening SSH sin romper túnel local (`-L`). | **Sí (implementado ahora)**: `00-hardening.conf` activo; `X11Forwarding no`, `AllowAgentForwarding no`, `MaxAuthTries 3`, `LoginGraceTime 30`. | ⭐⭐⭐⭐⭐ |
 | SEC-004 | Firewall mínimo viable (sin servicios innecesarios en zona pública). | Sí: zona `public` con solo `dhcpv6-client`; sin puertos abiertos. | ⭐⭐⭐⭐⭐ |
-| SEC-004.1 | Restringir SSH a IP pública fija (opcional). | No: no hay rich-rule de IP fija aplicada. | ⭐⭐⭐⭐☆ |
+| SEC-004.1 | Restringir SSH a IP pública fija (opcional). | Sí: regla aplicada en zona `public` para `35.151.231.132/32` hacia TCP/22 (sin `service ssh` global). | ⭐⭐⭐⭐☆ |
 | SEC-005 | Fail2ban activo para sshd (bloqueo de bruteforce). | Sí: jail `sshd` activo (stats y bans visibles). | ⭐⭐⭐⭐☆ |
-| SEC-006A | Acceso al panel por túnel SSH (sin exposición pública). | Parcial/Sí funcional por diseño; aún disponible como alternativa. | ⭐⭐⭐⭐☆ |
+| SEC-006A | Acceso al panel por túnel SSH (sin exposición pública). | Sí (fallback documentado y operativo): manual en `memory/ssh-tunnel-fallback-windows-manual.md`; servidor compatible (OpenClaw loopback + SSH controlado). | ⭐⭐⭐⭐☆ |
 | SEC-006B | Acceso SSH privado por Tailscale (sin SSH público en internet). | Sí: Tailscale activo; firewall público sin `ssh`; acceso permitido por tailnet (`100.64.0.0/10`). | ⭐⭐⭐⭐⭐ |
 | SEC-007 | Panel OpenClaw con token + pairing. | Sí: auth `token` y eventos de `pairing required` observados. | ⭐⭐⭐⭐⭐ |
 | SEC-008 | Allowlist de WhatsApp. | Sí: `allowFrom` configurado para `+19512716200`. | ⭐⭐⭐⭐☆ |
 | SEC-009 | Observabilidad diaria de seguridad. | Sí: cron root activo (`10 6 * * * /usr/local/sbin/openclaw-sec-daily.sh`) y logs en `/var/log/openclaw-security/`. | ⭐⭐⭐☆☆ |
-| SEC-010 | Beneficio global (postura endurecida y controlada). | Parcial alto: base sólida aplicada; pendiente opcional SEC-004.1 para escenarios sin Tailscale. | ⭐⭐⭐⭐☆ |
-| SEC-011 | Pendientes priorizados para cierre. | Parcial bajo: pendiente opcional SEC-004.1 (si se requiere alternativa por IP fija). | ⭐⭐⭐⭐⭐ |
+| SEC-010 | Beneficio global (postura endurecida y controlada). | Sí: postura endurecida con acceso primario por Tailscale + fallback controlado por IP y túnel SSH. | ⭐⭐⭐⭐☆ |
+| SEC-011 | Pendientes priorizados para cierre. | Sí: pendientes principales cerrados en esta fase. | ⭐⭐⭐⭐⭐ |
 
 ## Evidence highlights
 - SSH hardening effective values:
