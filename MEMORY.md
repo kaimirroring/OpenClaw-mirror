@@ -11,3 +11,6 @@
 - Regla operativa acordada: al pedir un `SEC-0XXX`, responder primero con diagnóstico estructurado (Resultado general, Evidencia clave, Comparativo vs objetivo, Conclusión) y esperar aprobación antes de implementar.
 - SEC-000 cerrado: backup fail2ban creado en `/root/sec-backups/fail2ban.2026-02-20-085720`.
 - SEC-009 automatizado: cron diario root (`10 6 * * * /usr/local/sbin/openclaw-sec-daily.sh`) con logs en `/var/log/openclaw-security/`.
+- SEC-006B implementado: acceso SSH privado por Tailscale y cierre de SSH público en firewall (origen tailnet `100.64.0.0/10`).
+- Manual operativo Tailscale (Windows laptop <-> VPS OL9) en `memory/tailscale-vps-laptop-secure-connection-manual.md`.
+- Checklist rápido de contingencia (60s post-reinicio) guardado en `memory/contingency-checklist-60s-vps-laptop-tailscale.md`.
