@@ -18,3 +18,5 @@
 - Manual de fallback túnel SSH Windows (SEC-006A) en `memory/ssh-tunnel-fallback-windows-manual.md`.
 - Preferencia operativa reafirmada: para automatizaciones (ej. Discord), el asistente debe ejecutar de forma autónoma end-to-end, pero siempre presentar plan (objetivo/beneficio/impacto) y esperar aprobación explícita antes de cambios críticos.
 - Política de enrutado multi-modelo aprobada y activa: `memory/model-router-policy.md` (tiers A/B/C/D/E, failover y umbrales de uso premium <=20% / <=10%).
+- Playbook operativo Google MailOps (Gmail+Drive OAuth, venv, token, triage, cron, one-shot, multi-cuenta) en `memory/google-gmail-drive-access-playbook.md`.
+- Preferencia operativa reafirmada: ejecución autónoma end-to-end con mínima intervención; siempre presentar plan y esperar aprobación explícita antes de cambios críticos.
