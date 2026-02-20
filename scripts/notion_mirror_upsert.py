@@ -3,6 +3,7 @@ import json
 import os
 import sys
 import urllib.request
+from datetime import datetime, timezone
 
 API = "https://api.notion.com/v1"
 VERSION = "2025-09-03"
@@ -26,7 +27,7 @@ def rich(text):
 
 def main():
     if len(sys.argv) < 3:
-        print("Usage: notion_mirror_upsert.py <source_repo> <mirror_repo> [status] [cron] [visibility] [workflow_url] [notes]")
+        print("Usage: notion_mirror_upsert.py <source_repo> <mirror_repo> [status] [cron] [visibility] [workflow_url] [notes] [last_sync_iso]")
         sys.exit(2)
 
     token = os.getenv("NOTION_API_KEY")
@@ -42,6 +43,7 @@ def main():
     visibility = sys.argv[5] if len(sys.argv) > 5 else "Private"
     workflow_url = sys.argv[6] if len(sys.argv) > 6 else ""
     notes = sys.argv[7] if len(sys.argv) > 7 else "Managed by OpenClaw mirroring flow."
+    last_sync = sys.argv[8] if len(sys.argv) > 8 else datetime.now(timezone.utc).replace(microsecond=0).isoformat().replace('+00:00', 'Z')
 
     db = req("GET", f"{API}/databases/{db_id}", token)
     data_sources = db.get("data_sources", [])
@@ -65,6 +67,7 @@ def main():
         "Repo Mirror": {"rich_text": rich(mirror_repo)},
         "Mirror Enabled": {"checkbox": status in ("Active", "Pending setup")},
         "Status": {"select": {"name": status}},
+        "Last Sync": {"date": {"start": last_sync}},
         "Cron": {"rich_text": rich(cron)},
         "Source Visibility": {"select": {"name": visibility}},
         "Notes": {"rich_text": rich(notes)},
